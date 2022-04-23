@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+  backend:
+    container_name: spring_docker_demo_backend40
+    image: ersin5/spring-docker-demo40
+    build: ./
+    ports:
+      - "8082:8082"
+    depends_on:
+      - "PostgreSQL"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://PostgreSQL:5432/London
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "1"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+
+  PostgreSQL:
+    container_name: postgres_db
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=1
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=London
