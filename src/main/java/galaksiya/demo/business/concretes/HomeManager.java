@@ -19,7 +19,7 @@ import java.util.Optional;
 public class HomeManager implements HomeService {
     List<Home> homes;
 
-    private HomeDao homeDao;
+    private final HomeDao homeDao;
 
     @Autowired
     public HomeManager(HomeDao homeDao) {
@@ -45,7 +45,19 @@ public class HomeManager implements HomeService {
         return new SuccessResult("Ev Silindi");
     }
 
-    public Result  updateById(Home home){
+    public DataResult<Home>  updateById(Home home){
+
+        Optional<Home> updateHome = homeDao.findById(home.getId());
+
+        if (!updateHome.isPresent()){
+            return new ErrorDataResult<Home>(home,"Böyle bir ev bulunmamaktadır");
+        }
+
+        this.homeDao.save(home);
+
+        return new SuccessDataResult<Home>(home,"Ev güncellendi");
+
+        /*
         homes = this.homeDao.findAll();
         for(int i = 0;i<homes.size();i++){
             if (homes.get(i).getId()==home.getId()){
@@ -54,9 +66,25 @@ public class HomeManager implements HomeService {
             }
         }
         return new ErrorResult("Böyle bir id bulunmamaktadır");
+
+         */
     }
 
-    public Result  updateById(Home home,int id){
+    public DataResult<Home>  updateById(Home home,int id){
+
+        Optional<Home> updateHome = homeDao.findById(id);
+
+        if (!updateHome.isPresent()){
+            return new ErrorDataResult<Home>(home,"böyle bir Ev bulunmamaktadır");
+        }
+
+        home.setId(id);
+        this.homeDao.save(home);
+
+        return new SuccessDataResult<Home>(home,"Ev güncellenmiştir");
+
+
+             /*
         homes = this.homeDao.findAll();
         for (int i = 0;i<homes.size();i++){
             if (homes.get(i).getId()==id){
@@ -68,8 +96,14 @@ public class HomeManager implements HomeService {
         }
 
         return new ErrorResult("Böyle bir id bulunmamaktadır");
+         */
+
     }
 
+    public DataResult<List<Home>> getAllId(){
+        Sort sort = Sort.by(Sort.Direction.ASC,"id");
+        return new SuccessDataResult<List<Home>>(this.homeDao.findAll(sort),"Başarılı");
+    }
 
     @Override
     public DataResult<List<Home>> getAllSorted() {
@@ -86,9 +120,10 @@ public class HomeManager implements HomeService {
     }
 
     @Override
-    public Result add(Home home) {
+    public DataResult<Home> add(Home home) {
+
         this.homeDao.save(home);
-        return new SuccessResult("Ürün eklendi");
+        return new SuccessDataResult<Home>(home,"Ev eklendi");
 
     }
 

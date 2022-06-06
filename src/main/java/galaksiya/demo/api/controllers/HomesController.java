@@ -73,6 +73,11 @@ public class HomesController {
         return this.homeService.getAllSorted();
     }
 
+    @GetMapping("/getAllSortedASC")
+    public DataResult<List<Home>> getAllSortedASC(){
+        return this.homeService.getAllId();
+    }
+
     @GetMapping("/getByPropertyNameOrLocation")
     public DataResult<List<Home>> getByPropertyNameOrLocation(@RequestParam String propertyName, String location){
         return this.homeService.getByPropertyNameOrLocation(propertyName,location);
