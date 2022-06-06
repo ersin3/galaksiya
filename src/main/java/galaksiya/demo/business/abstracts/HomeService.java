@@ -2,6 +2,7 @@ package galaksiya.demo.business.abstracts;
 
 import galaksiya.demo.core.utilities.results.DataResult;
 import galaksiya.demo.core.utilities.results.Result;
+import galaksiya.demo.core.utilities.results.SuccessDataResult;
 import galaksiya.demo.entities.concretes.Home;
 
 import java.util.List;
@@ -14,15 +15,15 @@ public interface HomeService  {
 
    Result deleteById(int homeId);
 
-   Result updateById(Home home);
+   DataResult<Home> updateById(Home home);
 
-   Result updateById(Home home,int homeId);
+   DataResult<Home> updateById(Home home,int homeId);
 
    DataResult<List<Home>> getAllSorted();
 
    DataResult<List<Home>> getAll(int pageNo,int pageSize);
 
-   Result add(Home home);
+   DataResult<Home> add(Home home);
 
    DataResult<List<Home>> getByPropertyName(String propertyName);
 
@@ -37,6 +38,8 @@ public interface HomeService  {
    DataResult<List<Home>> getByPropertyNameStartsWith(String propertyName);
 
    DataResult<List<Home>> getByBedroomsNoAndLocation(int bedroomsNo,String location);
+
+   DataResult<List<Home>> getAllId();
 
 
 
