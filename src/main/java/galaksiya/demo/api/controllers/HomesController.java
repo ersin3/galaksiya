@@ -1,6 +1,6 @@
 package galaksiya.demo.api.controllers;
 
-import galaksiya.demo.business.abstracts.HomeService;
+import galaksiya.demo.service.abstracts.HomeService;
 import galaksiya.demo.core.utilities.results.DataResult;
 import galaksiya.demo.core.utilities.results.Result;
 import galaksiya.demo.entities.concretes.Home;

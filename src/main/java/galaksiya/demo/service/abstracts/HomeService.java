@@ -1,8 +1,7 @@
-package galaksiya.demo.business.abstracts;
+package galaksiya.demo.service.abstracts;
 
 import galaksiya.demo.core.utilities.results.DataResult;
 import galaksiya.demo.core.utilities.results.Result;
-import galaksiya.demo.core.utilities.results.SuccessDataResult;
 import galaksiya.demo.entities.concretes.Home;
 
 import java.util.List;

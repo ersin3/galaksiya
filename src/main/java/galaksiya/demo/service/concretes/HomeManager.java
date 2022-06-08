@@ -1,6 +1,6 @@
-package galaksiya.demo.business.concretes;
+package galaksiya.demo.service.concretes;
 
-import galaksiya.demo.business.abstracts.HomeService;
+import galaksiya.demo.service.abstracts.HomeService;
 import galaksiya.demo.core.utilities.results.*;
 import galaksiya.demo.dataAccess.abstracts.HomeDao;
 import galaksiya.demo.entities.concretes.Home;
