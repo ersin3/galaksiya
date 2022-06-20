@@ -1,22 +1,23 @@
-package galaksiya.demo.repository;
+package galaksiya.demo.integration;
 
 import galaksiya.demo.dataAccess.abstracts.HomeDao;
 import galaksiya.demo.entities.concretes.Home;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @DataJpaTest
-public class HomeRepositoryTests {
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+public class HomeRepositoryIT extends AbstractionBaseTest{
 
     @Autowired
     private HomeDao homeDao;
