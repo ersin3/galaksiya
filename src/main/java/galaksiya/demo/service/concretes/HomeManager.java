@@ -4,8 +4,12 @@ import galaksiya.demo.service.abstracts.HomeService;
 import galaksiya.demo.core.utilities.results.*;
 import galaksiya.demo.dataAccess.abstracts.HomeDao;
 import galaksiya.demo.entities.concretes.Home;
+import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -17,21 +21,50 @@ import java.util.Optional;
 
 @Service
 public class HomeManager implements HomeService {
-    List<Home> homes;
 
-    private final HomeDao homeDao;
+    private HomeDao homeDao;
+    private AmqpTemplate rabbitTemplate;
+    private DirectExchange exchange;
 
     @Autowired
-    public HomeManager(HomeDao homeDao) {
+    public HomeManager(HomeDao homeDao,AmqpTemplate rabbitTemplate,DirectExchange exchange) {
         this.homeDao = homeDao;
+        this.rabbitTemplate = rabbitTemplate;
+        this.exchange = exchange;
     }
 
+    @Value("${sample.rabbitmq.routingKey}")
+    String routingKey;
 
+    @Value("${sample.rabbitmq.queue}")
+    String queueName;
 
     @Override
     public DataResult<List<Home>> getAll() {
         return new SuccessDataResult<List<Home>>(this.homeDao.findAll(),"Data Listelendi");
 
+    }
+
+
+
+    @Override
+    public Result deleteAll() {
+        this.homeDao.deleteAll();
+        return new SuccessResult("Datalar Silindi");
+    }
+
+    public String addMq(Home home){
+        rabbitTemplate.convertAndSend(exchange.getName(), routingKey,home);
+        return "Isteginiz olusturulmustur";
+    }
+
+    @RabbitListener(queues = "${sample.rabbitmq.queue}")
+    public DataResult<Home> addMqMessage(Home home){
+        if (!home.getPropertyName().isEmpty()) {
+            homeDao.save(home);
+            return new SuccessDataResult<Home>(home);
+        }
+        return new ErrorDataResult<Home>("Ev ismi boş olamaz");
     }
 
     @Override

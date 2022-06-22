@@ -24,6 +24,10 @@ public interface HomeService  {
 
    DataResult<Home> add(Home home);
 
+   String addMq(Home home);
+
+   Result deleteAll();
+
    DataResult<List<Home>> getByPropertyName(String propertyName);
 
    DataResult<List<Home>> getByPropertyNameAndLocation(String propertyName,String location);

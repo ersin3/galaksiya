@@ -5,6 +5,7 @@ import galaksiya.demo.core.utilities.results.DataResult;
 import galaksiya.demo.core.utilities.results.Result;
 import galaksiya.demo.entities.concretes.Home;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -98,9 +99,20 @@ public class HomesController {
         return this.homeService.deleteById(homeId);
     }
 
+    @DeleteMapping("/deleteall")
+    public Result deleteAll(){
+        return this.homeService.deleteAll();
+    }
+
     @GetMapping("/getByBedroomsNoAndLocation")
     public DataResult<List<Home>> getByBedroomsNoAndLocation(@RequestParam int bedroomsNo,@RequestParam String location){
         return this.homeService.getByBedroomsNoAndLocation(bedroomsNo,location);
+    }
+
+    @PostMapping("/addMq")
+    public ResponseEntity<String> addMq(@RequestBody Home home){
+        this.homeService.addMq(home);
+        return ResponseEntity.ok("İşleminiz başarıyla alınmıştır!");
     }
 
 
