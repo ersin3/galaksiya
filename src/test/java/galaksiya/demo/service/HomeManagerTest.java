@@ -40,6 +40,8 @@ class HomeManagerTest {
     }
     */
 
+
+
     @Test
     void canGetAll() {
 
@@ -50,6 +52,8 @@ class HomeManagerTest {
         verify(homeDao).findAll();
 
     }
+
+
 
     @Test
     void givenHomeId_whenGetHomeById_thenReturnHomeObject() {
@@ -68,6 +72,7 @@ class HomeManagerTest {
     }
 
 
+
     @Test
     void givenHomeObject_whenSaveHome_thenReturnHomeObject() {
 
@@ -79,6 +84,7 @@ class HomeManagerTest {
         //when
         when(homeDao.save(home)).thenReturn(home);
         Home home1 = homeService.add(home).getData();
+
 
         //then verify
         assertEquals("must be equal",home,home1);

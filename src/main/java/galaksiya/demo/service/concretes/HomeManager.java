@@ -58,13 +58,12 @@ public class HomeManager implements HomeService {
         return "Isteginiz olusturulmustur";
     }
 
-    @RabbitListener(queues = "${sample.rabbitmq.queue}")
-    public DataResult<Home> addMqMessage(Home home){
+    @RabbitListener(id = "listenerOne",queues = "${sample.rabbitmq.queue}")
+    public void addMqMessage(Home home){
         if (!home.getPropertyName().isEmpty()) {
             homeDao.save(home);
-            return new SuccessDataResult<Home>(home);
         }
-        return new ErrorDataResult<Home>("Ev ismi boş olamaz");
+       else{ System.out.println("Ev ismi boş Olamaz");}
     }
 
     @Override

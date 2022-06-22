@@ -99,7 +99,7 @@ public class HomesController {
         return this.homeService.deleteById(homeId);
     }
 
-    @DeleteMapping("/deleteall")
+    @DeleteMapping("/deleteAll")
     public Result deleteAll(){
         return this.homeService.deleteAll();
     }

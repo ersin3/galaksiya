@@ -26,6 +26,8 @@ public interface HomeService  {
 
    String addMq(Home home);
 
+   void addMqMessage(Home home);
+
    Result deleteAll();
 
    DataResult<List<Home>> getByPropertyName(String propertyName);
