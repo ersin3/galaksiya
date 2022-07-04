@@ -8,7 +8,7 @@ public abstract class AbstractionBaseTest {
 
     static final PostgreSQLContainer POSTGRE_SQL_CONTAINER;
 
-    static {
+    static  {
         POSTGRE_SQL_CONTAINER = new PostgreSQLContainer("postgres:latest")
                 .withDatabaseName("home")
                 .withPassword("password")
@@ -16,6 +16,8 @@ public abstract class AbstractionBaseTest {
 
         POSTGRE_SQL_CONTAINER.start();
     }
+
+
 
 
     @DynamicPropertySource

@@ -58,7 +58,7 @@ public class HomeManager implements HomeService {
         return "Isteginiz olusturulmustur";
     }
 
-    @RabbitListener(id = "listenerOne",queues = "${sample.rabbitmq.queue}")
+    @RabbitListener(queues = "${sample.rabbitmq.queue}")
     public void addMqMessage(Home home){
         if (!home.getPropertyName().isEmpty()) {
             homeDao.save(home);
